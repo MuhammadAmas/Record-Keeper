@@ -8,8 +8,13 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 export default function NoteCards() {
+
     const [title, setTitle] = useState('Note Title');
-    const [note, setNote] = useState('Note Content');
+    const [note, setNote] = useState({
+        title: 'Note Title',
+        contents: 'Note Content'
+    });
+  
 
     return (
         <Card sx={{
@@ -23,10 +28,10 @@ export default function NoteCards() {
         }}>
             <CardContent>
                 <Typography sx={{ fontSize: 18, fontWeight: 600 }} gutterBottom>
-                    {title}
+                    {note.title}
                 </Typography>
                 <Typography variant="body2">
-                    {note}
+                    {note.contents}
                 </Typography>
             </CardContent>
         </Card>
