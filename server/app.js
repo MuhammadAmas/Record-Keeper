@@ -1,6 +1,8 @@
 import express from 'express';
+import cors from 'cors';
 import {getNote, getNotes, createNote} from './database.js'
 const app = express();
+app.use(cors())
 app.use(express.json());
 
 app.get('/notes', async (req, res) => {
@@ -11,6 +13,7 @@ app.get('/notes', async (req, res) => {
 app.get('/notes/:id', async (req, res) => {
     const id = req.params.id
     const note = await getNote(id);
+    console.log(note);
     res.send(note)
 })
 
