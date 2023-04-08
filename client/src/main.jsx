@@ -5,6 +5,6 @@ import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.mode>
-    <App />
+  <App />
   // </React.mode>,
 )

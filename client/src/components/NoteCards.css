@@ -1,0 +1,14 @@
+@media (min-width: 768px) {
+    .records-container {}
+
+    .record-card {
+        width: '90%';
+        color: 'white';
+    }
+}
+
+
+.record-card {
+    width: '90%';
+    color: 'white !important';
+}

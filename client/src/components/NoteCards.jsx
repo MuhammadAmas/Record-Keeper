@@ -7,51 +7,56 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import useFetchData from '../utils/useFetchData';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import './NoteCards.css'
 
 export default function NoteCards() {
-
-    const [title, setTitle] = useState('Note Title');
-    const [note, setNote] = useState();
+    const theme = useTheme();
+    const [notes, setNotes] = useState();
 
     const record = async () => {
-        const notes = await useFetchData('GET', "http://localhost:3000/notes");
-        setNote(record());
-        return notes;
+        await useFetchData('GET', "http://localhost:3000/notes").
+            then((note) => {
+                setNotes(note);
+            });
     }
-    
-    // useEffect(() => {
-    //     record();
-    //     console.log("record", note)
-    // }, [])
 
-
-
-
-    // const records = note.then((notes) => {
-    //     console.log("notes",notes);
-    //     return notes;
-    // });
-    // console.log("record",records)
+    useEffect(() => {
+        record();
+    }, [])
+    console.log("record", notes)
 
 
     return <>
-        <Card sx={{
-            // minWidth: 275,
-            width: '50%',
+        <div className='records-container' style={{
             display: 'flex',
-            alignItems: 'center',
+            flexWrap: 'wrap',
+            margin: '0 3em',
+            gap: '24px',
             justifyContent: 'center',
-            margin: '3em auto',
-            // width: '60ch'
         }}>
-            <CardContent>
-                <Typography sx={{ fontSize: 18, fontWeight: 600 }} gutterBottom>
-                    {/* {note.title} */}
-                </Typography>
-                <Typography variant="body2">
-                    {/* {note.contents} */}
-                </Typography>
-            </CardContent>
-        </Card>
+            {notes !== undefined && notes.map((note) => {
+                return <Card className='recordCard' sx={{
+                    width: '100%',
+                    [theme.breakpoints.up('md')]: {
+                        width: '35%',
+                    },
+
+                }
+                }
+                    key={note.id}
+                >
+                    <CardContent>
+                        <Typography sx={{ fontSize: 18, fontWeight: 600 }} gutterBottom>
+                            {note.title}
+                        </Typography>
+                        <Typography variant="body2">
+                            {note.contents}
+                        </Typography>
+                    </CardContent>
+                </Card>
+            })}
+        </div >
     </>;
 }

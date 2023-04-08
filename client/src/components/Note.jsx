@@ -3,9 +3,17 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import usePushData from '../utils/usePushData';
 
 export default function Note() {
-    
+    function handleSubmit() {
+        usePushData('POST', 'http://localhost:3000/notes/', {
+            title: 'title',
+            contents: 'contents'
+        })
+        console.log('submitted')
+    }
+
     return <>
         <Box
             component="form"
@@ -41,7 +49,9 @@ export default function Note() {
                     <Button variant="contained" margin="0 14px"
                         sx={{
                             m: "1.5 0", width: '100%'
-                        }}>Add Record</Button>
+                        }}
+                        onClick={handleSubmit}
+                    >Add Record</Button>
                 </div>
             </Stack>
         </Box>
