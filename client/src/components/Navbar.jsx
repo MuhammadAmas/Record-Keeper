@@ -61,7 +61,7 @@ export default function Navbar() {
                         component="div"
                         sx={{ flexGrow: 0, display: { xs: 'none', sm: 'block' }, left: 0 }}
                     >
-                        Notes App
+                        Record Keeper
                     </Typography>
                     <Search>
                         <SearchIconWrapper>
