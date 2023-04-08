@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
 export default function Note() {
-
+    
     return <>
         <Box
             component="form"
@@ -41,7 +41,7 @@ export default function Note() {
                     <Button variant="contained" margin="0 14px"
                         sx={{
                             m: "1.5 0", width: '100%'
-                        }}>Add Note</Button>
+                        }}>Add Record</Button>
                 </div>
             </Stack>
         </Box>

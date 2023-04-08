@@ -11,17 +11,17 @@ const pool = mysql.createPool({
 }).promise();
 
 export async function getNotes() {
-    const [result] = await pool.query("SELECT * FROM notes");
+    const [result] = await pool.query("SELECT * FROM records");
     return result;
 }
 
 export async function getNote(id) {
-    const [result] = await pool.query("SELECT * FROM notes WHERE id = ?", [id]);
+    const [result] = await pool.query("SELECT * FROM records WHERE id = ?", [id]);
     return result[0];
 }
 
 export async function createNote(title, contents) {
-    const [result] = await pool.query("INSERT INTO notes (title, contents) VALUES (?, ?)", [title, contents]);
+    const [result] = await pool.query("INSERT INTO records (title, contents) VALUES (?, ?)", [title, contents]);
     const id = result.insertID;
     return getNote(id);
 }

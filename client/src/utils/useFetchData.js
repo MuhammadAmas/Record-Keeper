@@ -4,17 +4,13 @@ import request from '../utils/api';
 
 export default function useFetchData(method, url) {
     // const [notes, setNotes] = useState('')
-    useEffect(() => {
+    // useEffect(() => {
         async function fetchData() {
-            // console.log("Hello zawwar")
-            console.log((await request(method, url)));
             const result = await request(method, url);
-            // setNotes(result);
-            return result;
-            // return notes;
+            const data = await result
+            return data;
         }
-        // console.log("Hello zawwar", notes)
-        fetchData();
-    }, []);
+        return fetchData();
+    // }, []);
 }
 
