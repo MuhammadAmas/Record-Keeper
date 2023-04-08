@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import {getNote, getNotes, createNote} from './database.js'
+import { getNote, getNotes, createNote } from './database.js'
 const app = express();
 app.use(cors())
 app.use(express.json());
@@ -18,12 +18,17 @@ app.get('/notes/:id', async (req, res) => {
 })
 
 app.post('/notes', async (req, res) => {
-    const {title, contents} = req.body;
-    const note = await createNote(title, contents);
-    res.status(201).send(note)
+    const { title, contents } = req.body;
+    try {
+        const note = await createNote(title, contents);
+        console.log("object")
+        res.status(201).send(note)
+    } catch {
+        res.status(400).send('Bad Request')
+    }
 })
 
-app.use((err,req,res,next) => {
+app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke!');
 })
