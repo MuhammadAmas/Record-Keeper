@@ -23,7 +23,8 @@ app.post('/notes', async (req, res) => {
         const note = await createNote(title, contents);
         console.log("object")
         res.status(201).send(note)
-    } catch {
+    } catch (error) {
+        console.log(error)
         res.status(400).send('Bad Request')
     }
 })
