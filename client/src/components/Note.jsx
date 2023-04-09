@@ -4,8 +4,12 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import usePushData from '../utils/usePushData';
+import { useTheme } from '@mui/material/styles';
+
 
 export default function Note() {
+    const theme = useTheme();
+
     function handleSubmit() {
         usePushData('POST', 'http://localhost:3000/notes/', {
             title: 'title',
@@ -22,8 +26,12 @@ export default function Note() {
                     // m: "1.5 0",
                     // width: '60ch'
                 },
-                width: '50%',
                 margin: '3em auto',
+
+                width: '75%',
+                [theme.breakpoints.up('md')]: {
+                    width: '35%',
+                },
             }}
             noValidate
             autoComplete="off"

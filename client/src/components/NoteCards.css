@@ -1,5 +1,7 @@
-@media (min-width: 768px) {
-    .records-container {}
+/* @media (min-width: 768px) {
+    .records-container {
+        margin: 0em;
+    }
 
     .record-card {
         width: '90%';
@@ -11,4 +13,4 @@
 .record-card {
     width: '90%';
     color: 'white !important';
-}
+} */
