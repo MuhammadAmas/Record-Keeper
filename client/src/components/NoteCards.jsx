@@ -1,15 +1,13 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import useFetchData from '../utils/useFetchData';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import './NoteCards.css'
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function NoteCards() {
     const theme = useTheme();
@@ -27,6 +25,13 @@ export default function NoteCards() {
     }, [])
     console.log("record", notes)
 
+    const handleDelete = async (id) => {
+        console.log('deleteing', id)
+        await useFetchData('DELETE', "http://localhost:3000/notes/" + id).
+            then(() => {
+                record();
+            });
+    }
 
     return <>
         <div className='records-container' style={{
@@ -42,17 +47,34 @@ export default function NoteCards() {
                     [theme.breakpoints.up('md')]: {
                         width: '35%',
                     },
-
                 }
                 }
                     key={note.id}
                 >
                     <CardContent>
-                        <Typography sx={{ fontSize: 18, fontWeight: 600 }} gutterBottom>
-                            {note.title}
-                        </Typography>
-                        <Typography variant="body2">
+                        <div
+                            style={{
+                                width: '100%',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                alignItems: 'center'
+                            }} >
+                            <Typography sx={{ fontSize: 18, fontWeight: 600 }} gutterBottom>
+                                {note.title}
+                            </Typography>
+                            <IconButton aria-label="delete"
+                                onClick={() => handleDelete(note.id)}
+                                sx={{
+                                }}>
+                                <DeleteIcon />
+                            </IconButton>
+                        </div>
+                        <Typography variant="body1">
                             {note.contents}
+                        </Typography>
+                        <Typography variant="body2" color='grey' textAlign='center' marginTop='12px'>
+                            {note.created}
                         </Typography>
                     </CardContent>
                 </Card>
@@ -60,3 +82,5 @@ export default function NoteCards() {
         </div >
     </>;
 }
+
+

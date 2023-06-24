@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -6,16 +6,25 @@ import Stack from '@mui/material/Stack';
 import usePushData from '../utils/usePushData';
 import { useTheme } from '@mui/material/styles';
 
-
 export default function Note() {
     const theme = useTheme();
+    const [title, setTitle] = useState('');
+    const [contents, setContents] = useState('');
 
     function handleSubmit() {
-        usePushData('POST', 'http://localhost:3000/notes/', {
-            title: 'title',
-            contents: 'contents'
+        setTitle(document.getElementById('title').value);
+        setContents(document.getElementById('contents').value);
+        console.log({
+            title: title,
+            contents: contents
         })
-        console.log('submitted')
+        usePushData('POST', 'http://localhost:3000/notes/', {
+            title: title,
+            contents: contents
+        })();
+        console.log('submitted');
+
+
     }
 
     return <>
@@ -38,19 +47,21 @@ export default function Note() {
         >
             <Stack spacing={2} direction="column">
                 <TextField
-                    id="outlined-multiline-flexible"
+                    id="title"
                     label="Title"
                     multiline
                     maxRows={4}
                     placeholder='Write your title here...'
+                    onChange={(e) => setTitle(e.target.value)}
                 />
                 <TextField
-                    id="outlined-multiline-static"
+                    id="contents"
                     label="Note"
                     multiline
                     rows={4}
                     defaultValue=""
                     placeholder='Write your Note here...'
+                    onChange={(e) => setContents(e.target.value)}
                 />
 
                 <div>
@@ -65,3 +76,8 @@ export default function Note() {
         </Box>
     </>
 }
+
+
+
+
+
